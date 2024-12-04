@@ -656,5 +656,39 @@ const products = [
       "apparel",
       "mens"
     ]
+  },
+
+  {
+    id: "id1", 
+    image: "images/products/backpack.jpg",
+    name: " Black Backpack Camping Alaska Hunting Fishing",
+    rating: {
+      stars: 4,
+      count: 209
+    },
+    priceCents: 20000,
+    keywords: [
+      "sweaters",
+      "hoodies",
+      "apparel",
+      "mens"
+    ]
+  },
+
+  {
+    id: "id2",
+    image: "images/products/umbrella.jpg",
+    name: "Black Sunny Umbrella",
+    rating: {
+      stars: 5,
+      count: 999
+    },
+    priceCents: 899,
+    keywords: [
+      "sweaters",
+      "hoodies",
+      "apparel",
+      "mens"
+    ]
   }
 ];
