@@ -1,4 +1,4 @@
-export const cart = [{
+export let cart = [{
   productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
   quantity: 2
 }, 
@@ -54,4 +54,17 @@ export function addMessageCart(productId){
   }, 2000)
 
   timeoutsAddMessage[productId] = timeoutid;
+}
+
+
+export function deleteItem(id){
+  let newCart = [];
+
+  cart.forEach((element) => {
+    if (element.productId !== id){
+      newCart.push(element);
+    }
+  })
+
+  cart = newCart;
 }
