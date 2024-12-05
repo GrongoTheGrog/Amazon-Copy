@@ -209,3 +209,34 @@
   margin-top: 11px;
   margin-bottom: 15px;
 }
+
+.save-quantity-link{
+  display: none;
+  cursor: pointer;
+  color: rgb(1, 124, 182);
+}
+.save-quantity-link:hover{
+  display: none;
+  cursor: pointer;
+  color: rgb(1, 124, 182);
+}
+
+.quantity-input{
+  display: none;
+}
+
+.is-editing-quantity .quantity-input{
+  display: initial;
+}
+
+.is-editing-quantity .save-quantity-link{
+  display: initial;
+}
+
+.is-editing-quantity .js-update{
+  display: none;
+}
+
+.is-editing-quantity .quantity-label{
+  display: none;
+}

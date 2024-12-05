@@ -12,19 +12,12 @@ export let cart = JSON.parse(localStorage.getItem('cart')) || [{
 
 let cartNumber = document.querySelector('.cart-quantity');
 
-!cartNumber ? cartNumber = 0 : cartNumber.innerHTML = cart.length;
+!cartNumber ? cartNumber = 0 : updateCartQuantity('.cart-quantity');
 
 export function addToCart(id){
   let matchingItem;
 
     const selectedNumber = document.querySelector(`.js-quantity-selector-${id}`).value;
-
-    cartNumber = document.querySelector('.cart-quantity');
-
-    cartNumber.innerHTML = Number(cartNumber.innerHTML) + Number(selectedNumber);
-
-
-
 
 
     cart.forEach((value) => {
@@ -42,6 +35,7 @@ export function addToCart(id){
       })
     }
 
+    updateCartQuantity('.cart-quantity');
     saveToStorage();
 
 }
@@ -85,3 +79,13 @@ export function deleteItem(id){
   saveToStorage();
 }
 
+export function updateCartQuantity(a){
+  let add = 0;
+  const element = document.querySelector(a);
+
+  cart.forEach(object => {
+    add += object.quantity;
+  })
+
+  element.innerHTML = add;
+}
