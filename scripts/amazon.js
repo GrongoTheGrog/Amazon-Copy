@@ -62,13 +62,10 @@ products.forEach((product) => {
 document.querySelector('.products-grid')
   .innerHTML = productsHTML;
 
-let add = 0;
-
-let timeoutsAddMessage = {};
-
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
   button.addEventListener('click', () => {
-    const { productId } = button.dataset;
+    const productId = button.dataset.productId;
+    console.log(productId)
 
     addToCart(productId);
 

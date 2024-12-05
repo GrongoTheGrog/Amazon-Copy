@@ -1,4 +1,4 @@
-export let cart = [{
+export let cart = JSON.parse(localStorage.getItem('cart')) || [{
   productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
   quantity: 2
 }, 
@@ -9,20 +9,26 @@ export let cart = [{
 }
 ];
 
+
+let cartNumber = document.querySelector('.cart-quantity');
+
+!cartNumber ? cartNumber = 0 : cartNumber.innerHTML = cart.length;
+
 export function addToCart(id){
   let matchingItem;
 
     const selectedNumber = document.querySelector(`.js-quantity-selector-${id}`).value;
 
-    let cartNumber = document.querySelector('.cart-quantity')
-      .innerHTML;
+    cartNumber = document.querySelector('.cart-quantity');
 
-    cartNumber = Number(cartNumber) + Number(selectedNumber);
+    cartNumber.innerHTML = Number(cartNumber.innerHTML) + Number(selectedNumber);
+
+
 
 
 
     cart.forEach((value) => {
-      if (value.id === id){
+      if (value.productId === id){
         matchingItem = value;
       }
     })
@@ -31,10 +37,12 @@ export function addToCart(id){
       matchingItem.quantity += Number(selectedNumber);
     }else{
       cart.push({
-        id,
+        productId: id,
         quantity: 1
       })
     }
+
+    saveToStorage();
 
 }
 
@@ -56,6 +64,10 @@ export function addMessageCart(productId){
   timeoutsAddMessage[productId] = timeoutid;
 }
 
+function saveToStorage(){
+  localStorage.setItem('cart', JSON.stringify(cart))
+}
+
 
 export function deleteItem(id){
   let newCart = [];
@@ -66,5 +78,10 @@ export function deleteItem(id){
     }
   })
 
+  localStorage.setItem('cart', JSON.stringify(cart));
   cart = newCart;
+  console.log(cart);
+
+  saveToStorage();
 }
+

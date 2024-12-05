@@ -101,7 +101,7 @@ document.querySelector('.order-summary').innerHTML = cartSummary;
 document.querySelectorAll('.js-delete').forEach((element) => {
   element.addEventListener('click', () => {
     let productId = element.dataset.name;
-    deleteItem();
+    deleteItem(productId);
     const container = document.querySelector(`.js-cart-item-container-${productId}`).remove();
   }) 
 })
