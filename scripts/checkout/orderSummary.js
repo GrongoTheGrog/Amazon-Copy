@@ -1,9 +1,12 @@
-import { deleteItem } from '../../data/cart.js';
 import { cart, updateCartQuantity, updateDeliveryOption } from '../../data/cart.js';
+import { deleteItem } from '../../data/cart.js';
 import { products } from '../../data/products.js';
 import toDollars from './../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {deliveryOptions} from '../../data/delivery-options.js'
+import { renderPaymentSummary } from './paymentSummary.js';
+
+
 
 const today = dayjs();
 const deliveyDate = today.add(7, 'days');
@@ -143,6 +146,8 @@ export function renderOrderSummary(){
       document.getElementById(productId).remove();
       deleteItem(productId);
       updateCartQuantity('.js-cart-quantity-checkout');
+      renderOrderSummary();
+      renderPaymentSummary();
     }) 
   })
 
@@ -170,10 +175,10 @@ export function renderOrderSummary(){
           label.innerHTML = a.quantity;
 
           updateCartQuantity('.js-cart-quantity-checkout');
+          renderPaymentSummary();
+          renderOrderSummary();
         }
       })
-
-
     })
   })
 
@@ -188,6 +193,7 @@ export function renderOrderSummary(){
       updateDeliveryOption(productId, deliveryOptionId);
 
       renderOrderSummary();
+      renderPaymentSummary();
     })
   })
 
