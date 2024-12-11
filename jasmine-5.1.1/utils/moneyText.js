@@ -1,6 +1,6 @@
-import toDollars from "../scripts/utils/money.js";
+import { toDollars } from "../../scripts/utils/money.js";
 
-describe('test suite: formatCurrency', () => {
+describe('test suite: toDollars', () => {
   it('converts cents into dollars', () => {
     expect(toDollars(2095)).toEqual('20.95');
   });
