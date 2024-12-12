@@ -32,12 +32,6 @@ export function renderPaymentSummary(){
   const total = (shippingPriceCents + productPriceCents) / 100;
   const tax = (shippingPriceCents + productPriceCents) / 100 * 0.1;
 
-  console.log(`Price: ${productPriceCents / 100}`);
-  console.log(`Shipping: ${shippingPriceCents ? shippingPriceCents / 100 : 'FREE'}`)
-  console.log(`Total Price Before Tax: ${total}`)
-  console.log(`Estimated Tax: ${tax}`)
-  console.log(`Final Price ${total + tax}`)
-
   let add = 0;
 
   cart.forEach(object => {

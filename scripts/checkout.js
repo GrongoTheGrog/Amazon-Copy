@@ -8,5 +8,3 @@ import { cart } from "../data/cart-oop.js";
 renderOrderSummary();
 renderPaymentSummary();
 
-
-console.log(cart)
