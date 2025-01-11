@@ -1,12 +1,15 @@
 import { cart, updateCartQuantity, updateDeliveryOption } from '../../data/cart.js';
 import { deleteItem } from '../../data/cart.js';
-import { products } from '../../data/products.js';
+import { products, loadProducts, loadProductsFetch } from '../../data/products.js';
 import { toDollars } from './../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {deliveryOptions} from '../../data/delivery-options.js'
 import {renderPaymentSummary} from './paymentSummary.js'
 
-
+loadProductsFetch().then(() => {
+  console.log(products)
+  renderOrderSummary();
+})
 
 
 const today = dayjs();
@@ -199,5 +202,3 @@ export function renderOrderSummary(){
   })
 
 }
-
-renderOrderSummary();

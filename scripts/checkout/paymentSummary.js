@@ -1,6 +1,16 @@
 import { cart } from "../../data/cart.js";
-import { products } from "../../data/products.js";
+import { products, loadProducts } from "../../data/products.js";
 import { deliveryOptions } from "../../data/delivery-options.js";
+
+
+new Promise((resolve) => {
+  loadProducts(() => {
+    resolve();
+  })
+}).then(() => {
+  renderPaymentSummary();
+})
+ 
 
 export function renderPaymentSummary(){
   let productPriceCents = 0;
@@ -78,5 +88,3 @@ export function renderPaymentSummary(){
   container.innerHTML = html;
 
 }
-
-renderPaymentSummary();

@@ -1,6 +1,6 @@
 import { toDollars } from "../scripts/utils/money.js";
 
-class Product{
+export class Product{
   id;
   image;
   name;
@@ -28,7 +28,7 @@ class Product{
   }
 }
 
-class Clothing extends Product{
+export class Clothing extends Product{
   sizeChartLink;
 
   constructor(productDetails){
@@ -38,10 +38,26 @@ class Clothing extends Product{
 
   extraInfoHTML(){
     return `
-      <a href="${this.sizeChartLink}" target="_blank">
-        Size Chart
-      </a>
+      <a href="${this.sizeChartLink}" target="_blank">Size Chart</a>
     `;
+  }
+}
+
+export class Applience extends Product{
+  instructionsLink;
+  warrantyLink;
+
+  constructor(productDetails){
+    super(productDetails);
+    this.instructionsLink = productDetails.instructionsLink;
+    this.warrantyLink = productDetails.warrantyLink;
+  }
+
+  extraInfoHTML(){
+    return `
+      <a href="${this.warrantyLink}" target="_blank">Warranty</a>
+      <a href="${this.instructionsLink}" target="_blank">Instructions Link</a>
+    `
   }
 }
 
@@ -64,12 +80,59 @@ const product1 = new Product(
       "sports",
       "apparel"
     ]
-}
-
+  }
 );
 
+export let products;
+
+export function loadProductsFetch() {
+  const promise = fetch('https://supersimplebackend.dev/products').then((response) => {
+    return response.json();
+  }).then((productsData) => {
+    products =  productsData.map(object => {
+      if (object.type === 'clothing'){
+        return new Clothing(object);
+      }
+    
+      if (object.name === "2 Slot Toaster - Black"){
+        return new Applience(object);
+      }
+    
+      return new Product(object)
+    })
+  });
+
+  return promise;
+}
 
 
+export function loadProducts(fun) {
+  const hxr = new XMLHttpRequest();
+
+  hxr.addEventListener('load', () => {
+    products =  JSON.parse(hxr.response).map(object => {
+      if (object.type === 'clothing'){
+        return new Clothing(object);
+      }
+    
+      if (object.name === "2 Slot Toaster - Black"){
+        return new Applience(object);
+      }
+    
+      return new Product(object)
+    })
+    console.log(products)
+
+    fun()
+  })
+
+  hxr.open('GET', 'https://supersimplebackend.dev/products');
+  hxr.send();
+};
+
+
+
+/*
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -130,7 +193,10 @@ export const products = [
       "toaster",
       "kitchen",
       "appliances"
-    ]
+    ],
+
+    instructionsLink: 'images/appliance-instructions.png',
+    warrantyLink: 'images/appliance-warranty.png'
   },
   {
     id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
@@ -768,7 +834,12 @@ export const products = [
     return new Clothing(object);
   }
 
+  if (object.name === "2 Slot Toaster - Black"){
+    return new Applience(object);
+  }
+
   return new Product(object)
 })
 
 console.log(products);
+*/
