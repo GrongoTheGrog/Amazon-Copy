@@ -1,7 +1,7 @@
 import { cart } from "../../data/cart.js";
 import { products, loadProducts } from "../../data/products.js";
 import { deliveryOptions } from "../../data/delivery-options.js";
-
+import { addOrder } from "../../data/orders.js";
 
 new Promise((resolve) => {
   loadProducts(() => {
@@ -87,4 +87,29 @@ export function renderPaymentSummary(){
   const container = document.querySelector('.payment-summary');
   container.innerHTML = html;
 
+  document.querySelector('.place-order-button')
+    .addEventListener('click', async (event) => {
+      try{
+        console.log(cart)
+        const response = await fetch('https://supersimplebackend.dev/orders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            cart: cart
+          })
+        })
+        
+        window.location.href = 'orders.html';
+
+        const order = await response.json();
+        addOrder(order);
+
+      } catch (error){
+        console.error(`Error ${error}, try again later.`)
+      }
+    });
+
 }
+
