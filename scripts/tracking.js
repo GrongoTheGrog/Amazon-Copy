@@ -60,13 +60,13 @@ function loadTracking(){
         <img class="product-image" src="${matchingProduct.image}">
 
         <div class="progress-labels-container">
-          <div class="progress-label">
+          <div class="progress-label preparing">
             Preparing
           </div>
-          <div class="progress-label current-status">
+          <div class="progress-label shipped">
             Shipped
           </div>
-          <div class="progress-label">
+          <div class="progress-label delivered">
             Delivered
           </div>
         </div>
@@ -94,6 +94,20 @@ function loadTracking(){
     console.log(perCent)
 
     document.querySelector('.progress-bar').style.width = `${perCent}%`
+
+    let status = '';
+
+    if (perCent < 33){
+      status = 'preparing';
+    }else if (perCent >= 33 && perCent < 100){
+      status = 'shipped';
+    }else{
+      status = 'deliverd';
+    };
+
+    document.querySelector(`.${status}`).classList.add('current-status');
+
+
   }
 
   document.querySelector('.main').innerHTML = html;
